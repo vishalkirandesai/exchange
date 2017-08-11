@@ -49,7 +49,7 @@ class ExchangeCombinationsController < ApplicationController
         format.html do
           redirect_to @exchange_combination,
                       status: :ok,
-                      notice: 'Combination is available.'
+                      notice: 'Combination has been created or was available.'
         end
         format.json do
           render :show, status: :ok, location: @exchange_combination

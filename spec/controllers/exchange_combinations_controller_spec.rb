@@ -48,6 +48,14 @@ describe ExchangeCombinationsController do
       expect(ExchangeRecord).to receive(:get_historical_data)
       get :show, params: { id: exchange_combination.id }
     end
+    it 'checks if a record does not exist' do
+      expect(ExchangeRecord).to receive(:get_record_from_database).exactly(25)
+      get :show, params: { id: exchange_combination.id }
+    end
+    it 'retrieves data from fixer if a record does not exist' do
+      expect(ExchangeRecord).to receive(:fetch_data_from_fixer).exactly(25)
+      get :show, params: { id: exchange_combination.id }
+    end
   end
 
   describe '#update' do

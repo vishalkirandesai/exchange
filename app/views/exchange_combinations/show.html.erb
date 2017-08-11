@@ -25,7 +25,17 @@
 
 <p>
   <strong>Predicted rates</strong>
-  <%= line_chart get_arma(@history), min: min_value(@history), max: max_value(@history), download: true %>
+  <%= line_chart @predictions = get_arma(@history, @exchange_combination.wait), min: min_value(@predictions), max: max_value(@predictions), download: true %>
+</p>
+
+<p>
+  <strong>Best day to exchange:</strong>
+  <%= get_best_day(@predictions) %>
+</p>
+
+<p>
+  <strong>Amount expected:</strong>
+  <%= (min_value(@predictions).to_i * @exchange_combination.amount.to_i).to_s + ' ' + @exchange_combination.target %>
 </p>
 
 <% if @exchange_combination.user == current_user %>
