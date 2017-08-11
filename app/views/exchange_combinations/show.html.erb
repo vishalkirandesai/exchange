@@ -1,0 +1,34 @@
+<p>
+  <strong>Base:</strong>
+  <%= @exchange_combination.base %>
+</p>
+
+<p>
+  <strong>Target:</strong>
+  <%= @exchange_combination.target %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @exchange_combination.amount %>
+</p>
+
+<p>
+  <strong>Wait:</strong>
+  <%= @exchange_combination.wait %>
+</p>
+
+<p>
+  <strong>Historical rates</strong>
+  <%= line_chart @history, min: min_value(@history), max: max_value(@history), download: true %>
+</p>
+
+<p>
+  <strong>Predicted rates</strong>
+  <%= line_chart get_arma(@history), min: min_value(@history), max: max_value(@history), download: true %>
+</p>
+
+<% if @exchange_combination.user == current_user %>
+  <%= link_to 'Edit', edit_exchange_combination_path(@exchange_combination) %> |
+<% end %>
+<%= link_to 'Back', exchange_combinations_path %>

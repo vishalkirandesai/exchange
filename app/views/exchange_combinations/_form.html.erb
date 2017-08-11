@@ -1,0 +1,41 @@
+<%= form_with(model: exchange_combination, local: true) do |form| %>
+  <% if exchange_combination.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(exchange_combination.errors.count, "error") %> prohibited this exchange_combination from being saved:</h2>
+
+      <ul>
+      <% exchange_combination.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :base %>
+    <%= form.collection_select :base, Currency::LIST, :to_s, :to_s,
+                               include_blank: true, class: 'form-control'
+    %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :target %>
+    <%= form.collection_select :target, Currency::LIST, :to_s, :to_s,
+                            include_blank: true, class: 'form-control'
+    %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :amount %>
+    <%= form.text_field :amount, id: :exchange_combination_amount, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :wait %>
+    <%= form.text_field :wait, id: :exchange_combination_wait, class: 'form-control' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
