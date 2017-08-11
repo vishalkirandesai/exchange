@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe ExchangeRecord, type: :model do
-
   let(:valid_params) do
     {
       base: 'AUD',

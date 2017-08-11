@@ -1,6 +1,5 @@
 # Helper module for ExchangeCombination
 module ExchangeCombinationsHelper
-
   def min_value(history)
     history.values.min
   end
