@@ -1,24 +1,13 @@
-# README
+# Welcome to Exchange
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## What does it do?
+It gives the end user a rough idea on how a certain currency pair has performed in the near past and eventually helps the user understand when to buy or sell the currency.
 
-Things you may want to cover:
+## What all is available in this prototype?
+1. Create an account with your email.
+2. Login and create an exchange combination.
+3. View the exchange combination with past data.
+4. Edit or delete the exchange combination.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Where is it?
+https://exchangecombinations.herokuapp.com/
