@@ -6,7 +6,7 @@ class ExchangeCombination < ApplicationRecord
             numericality: true,
             allow_nil: false,
             inclusion: { in: 1..25 }
-  validates :amount, numericality: true, allow_nil: false
+  validates :amount, numericality: { greater_than: 0 }, allow_nil: false
   validates :base, inclusion: { in: Currency::LIST }
   validates :target, inclusion: { in: Currency::LIST }
   validate :currency_validation

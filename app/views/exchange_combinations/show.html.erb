@@ -35,7 +35,7 @@
 
 <p>
   <strong>Amount expected:</strong>
-  <%= (min_value(@predictions).to_i * @exchange_combination.amount.to_i).to_s + ' ' + @exchange_combination.target %>
+  <%= (min_value(@predictions) * @exchange_combination.amount.to_i).to_s + ' ' + @exchange_combination.target %>
 </p>
 
 <% if @exchange_combination.user == current_user %>

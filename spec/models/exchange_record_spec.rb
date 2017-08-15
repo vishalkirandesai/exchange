@@ -17,6 +17,12 @@ RSpec.describe ExchangeRecord, type: :model do
       date: '2016-07-23'
     }
   end
+  let(:invalid_params_with_negative_amount) do
+    {
+      date: '2016-07-23',
+      amount: '-5'
+    }
+  end
   it 'is valid without a base and date' do
     exchange_record = ExchangeRecord.new(valid_params)
     expect(exchange_record).to be_valid
