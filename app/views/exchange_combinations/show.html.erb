@@ -35,7 +35,7 @@
 
 <p>
   <strong>Amount expected:</strong>
-  <%= sprintf('%.2f', min_value(@predictions) * @exchange_combination.amount.to_i).to_s + ' ' + @exchange_combination.target %>
+  <%= sprintf('%.2f', max_value(@predictions) * @exchange_combination.amount.to_i).to_s + ' ' + @exchange_combination.target %>
 </p>
 
 <% if @exchange_combination.user == current_user %>
