@@ -11,3 +11,9 @@ It gives the end user a rough idea on how a certain currency pair has performed 
 
 ## Where is it?
 https://exchangecombinations.herokuapp.com/
+
+## To run specs       
+
+```bundle exec rspec```      
+
+*Note:* In the user model, include *devise :confirmable* as devise needs this feature to run with specs. 
