@@ -27,12 +27,10 @@ class ExchangeCombination < ApplicationRecord
   def self.create_unique(params, current_user)
     exchange_combination = find_unique(params, current_user)
     return exchange_combination if exchange_combination
-    exchange_combination =
-      new(user_id: current_user.id,
-          base: params['base'],
-          target: params['target'],
-          wait: params['wait'],
-          amount: params['amount'])
-    exchange_combination
+    new(user_id: current_user.id,
+        base: params['base'],
+        target: params['target'],
+        wait: params['wait'],
+        amount: params['amount'])
   end
 end

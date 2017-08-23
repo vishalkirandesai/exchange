@@ -45,10 +45,9 @@ class ExchangeCombinationsController < ApplicationController
                             .create_unique(exchange_combination_params,
                                            current_user)
     respond_to do |format|
-      if @exchange_combination.save
+      if @exchange_combination
         format.html do
           redirect_to @exchange_combination,
-                      status: :ok,
                       notice: 'Combination has been created or was available.'
         end
         format.json do
