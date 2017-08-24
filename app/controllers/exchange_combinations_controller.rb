@@ -63,6 +63,9 @@ class ExchangeCombinationsController < ApplicationController
   # PATCH/PUT /exchange_combinations/1
   # PATCH/PUT /exchange_combinations/1.json
   def update
+    if current_user.id != @exchange_combination.user.id
+      render_unauthorised('Not yours to meddle with.')
+    end
     respond_to do |format|
       if @exchange_combination.update(exchange_combination_params)
         format.html do
@@ -78,6 +81,16 @@ class ExchangeCombinationsController < ApplicationController
           render json: @exchange_combination.errors,
                  status: :unprocessable_entity
         end
+      end
+    end
+  end
+
+  def render_unauthorised(message)
+    respond_to do |format|
+      format.html { render :edit, status: :unauthorized, notice: message }
+      format.json do
+        render json: @exchange_combination.errors,
+               status: :unauthorized
       end
     end
   end
