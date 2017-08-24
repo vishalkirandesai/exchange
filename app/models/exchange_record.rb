@@ -3,13 +3,12 @@ class ExchangeRecord < ApplicationRecord
   validates :base, inclusion: { in: Currency::LIST }
   validates :date, presence: true
   def self.get_historical_data(base, target)
-    @history = {}
-    current = Date.today
-    start = current - 175
-    while start < current
+    @history = []
+    ((Date.today - 25.weeks)..Date.today).step(7) do |current|
       current_record = get_record_from_database(base, current)
-      @history[current] = current_record['rates'][target] if current_record
-      current -= 7
+      if current_record
+        @history << { date: current, rate: current_record['rates'][target] }
+      end
     end
     @history
   end
@@ -29,19 +28,35 @@ class ExchangeRecord < ApplicationRecord
     new_record
   end
 
-  def self.predicted_data(data, wait)
-    today = Date.today
-    last_day = today + (7 * wait)
-    first = data.values[0].to_f
-    last = data.values[data.values.size - 1].to_f
-    average = (last - first) / data.values.size.to_f
-    predicted = {}
-    price = data[today].to_f
-    while today <= last_day
+  def self.predicted_data(history, wait)
+    price = history.last[:rate].to_f
+    average = calculate_average(history)
+    calculate_predicted_data(history.last[:date], wait, price, average)
+  end
+
+  def self.calculate_average(history)
+    (history.first[:rate].to_f - history.last[:rate].to_f) /
+      history.size.to_f
+  end
+
+  def self.calculate_predicted_data(start, wait, price, average)
+    predicted = []
+    original_price = price
+    (start..(start + (7 * wait))).step(7) do |date|
+      predicted << { date: date.strftime('%Y-%m-%d'),
+                     profit: price - original_price,
+                     rate: price }
       price -= average
-      predicted[today.strftime('%Y-%m-%d')] = price
-      today += 7
     end
-    predicted
+    get_ranking(predicted)
+  end
+
+
+  def self.get_ranking(predictions)
+    ascending = predictions.sort { |a, b| a[:rate] <=> b[:rate] }.uniq.reverse
+    predictions.each do |p|
+      p[:rank] = ascending.index(p) + 1
+    end
   end
 end
+
