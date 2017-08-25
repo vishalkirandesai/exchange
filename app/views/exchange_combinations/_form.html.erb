@@ -1,14 +1,9 @@
 <%= form_with(model: exchange_combination, local: true) do |form| %>
-  <% if exchange_combination.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(exchange_combination.errors.count, "error") %> prohibited this exchange_combination from being saved:</h2>
-
-      <ul>
-      <% exchange_combination.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+  <% exchange_combination.errors.full_messages.each do |value| %>
+      <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <%= value %>
+      </div>
   <% end %>
 
   <div class="form-group">
