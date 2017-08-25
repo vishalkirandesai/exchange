@@ -53,6 +53,7 @@ group :development, :test do
   # and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'factory_girl_rails', '~> 4.0'
+  gem 'foreman'
   gem 'rspec-rails', '~> 3.5'
 end
 
