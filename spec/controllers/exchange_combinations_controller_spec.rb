@@ -46,10 +46,12 @@ describe ExchangeCombinationsController do
   describe '#create' do
     it 'searches the records to find existing combination' do
       expect(ExchangeCombination).to receive(:find_unique)
+        .and_return(exchange_combination)
       post :create, params: exchange_combination_params
     end
     it 'creates new record when no records exist' do
       expect(ExchangeCombination).to receive(:new)
+        .and_return(exchange_combination)
       post :create, params: exchange_combination_params
     end
   end
@@ -61,12 +63,12 @@ describe ExchangeCombinationsController do
     end
     it 'checks if a record does not exist' do
       expect(ExchangeRecord)
-        .to receive(:get_record_from_database).exactly(wait.to_i)
+        .to receive(:get_record_from_database).exactly(wait.to_i + 1)
       get :show, params: { id: exchange_combination.id }
     end
     it 'retrieves data from fixer if a record does not exist' do
       expect(ExchangeRecord)
-        .to receive(:fetch_data_from_fixer).exactly(wait.to_i)
+        .to receive(:fetch_data_from_fixer).exactly(wait.to_i + 1)
       get :show, params: { id: exchange_combination.id }
     end
   end

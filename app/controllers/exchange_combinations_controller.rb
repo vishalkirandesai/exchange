@@ -44,7 +44,7 @@ class ExchangeCombinationsController < ApplicationController
     @exchange_combination = ExchangeCombination
                             .create_unique(exchange_combination_params,
                                            current_user)
-    if @exchange_combination
+    if @exchange_combination.save
       render_ok 'Combination has been created or was available.'
     else
       render_unprocessable

@@ -43,12 +43,24 @@
   <tbody>
   <% @predictions.each do |prediction| %>
       <tr>
+        <% profit = determine_profit_or_loss(prediction[:profit])%>
+        <% rank = prediction[:rank] %>
         <td><%= get_year(prediction[:date]) %></td>
         <td><%= get_week_of_the_year(prediction[:date]) %></td>
         <td><%= sprintf('%.2f', prediction[:rate]) %></td>
         <td><%= sprintf('%.2f', prediction[:rate].to_f * @exchange_combination.amount.to_i).to_s %></td>
-        <td><%= profit = determine_profit_or_loss(prediction[:profit])%> <%= @exchange_combination.base unless profit === 'No change'%></td>
-        <td><%= prediction[:rank] if prediction[:rank].between?(1, 3) %></td>
+        <% if profit.include? 'Gain' %>
+            <td class="alert-success"><%= profit %> <%= @exchange_combination.base %></td>
+        <% elsif profit.include? 'Loss' %>
+            <td class="alert-danger"><%= profit %> <%= @exchange_combination.base %></td>
+        <% else %>
+            <td><%= profit %></td>
+        <% end %>
+        <% if rank.between?(1, 3) %>
+            <td class="alert-warning"><%= rank %></td>
+        <% else %>
+            <td></td>
+        <% end %>
       </tr>
   <% end %>
   </tbody>
