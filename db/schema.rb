@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170810175234) do
+ActiveRecord::Schema.define(version: 20170825125249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20170810175234) do
   create_table "exchange_combinations", force: :cascade do |t|
     t.string "base"
     t.string "target"
-    t.integer "amount"
+    t.bigint "amount"
     t.integer "wait"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
