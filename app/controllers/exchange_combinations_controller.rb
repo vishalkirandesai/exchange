@@ -2,7 +2,7 @@
 class ExchangeCombinationsController < ApplicationController
   before_action :set_exchange_combination,
                 only: [:show, :edit, :update, :destroy]
-  before_action :current_user?, only: [:update, :destroy]
+  before_action :current_user?, only: [:update, :destroy, :edit]
 
   # GET /exchange_combinations
   # GET /exchange_combinations.json
@@ -44,19 +44,10 @@ class ExchangeCombinationsController < ApplicationController
     @exchange_combination = ExchangeCombination
                             .create_unique(exchange_combination_params,
                                            current_user)
-    respond_to do |format|
-      if @exchange_combination
-        format.html do
-          redirect_to @exchange_combination,
-                      notice: 'Combination has been created or was available.'
-        end
-        format.json do
-          render :show, status: :ok, location: @exchange_combination
-        end
-      else
-        format.html { render :new }
-        format.json { render json: errors, status: :unprocessable_entity }
-      end
+    if @exchange_combination
+      render_ok 'Combination has been created or was available.'
+    else
+      render_unprocessable
     end
   end
 
@@ -64,23 +55,22 @@ class ExchangeCombinationsController < ApplicationController
   # PATCH/PUT /exchange_combinations/1.json
   def update
     if current_user.id != @exchange_combination.user.id
-      render_unauthorised('Not yours to meddle with.')
+      render_unauthorised 'Not yours to meddle with.'
+    elsif @exchange_combination.update(exchange_combination_params)
+      render_ok 'Exchange combination was successfully updated.'
+    else
+      render_unprocessable
     end
+  end
+
+  def render_ok(message)
     respond_to do |format|
-      if @exchange_combination.update(exchange_combination_params)
-        format.html do
-          redirect_to @exchange_combination,
-                      notice: 'Exchange combination was successfully updated.'
-        end
-        format.json do
-          render :show, status: :ok, location: @exchange_combination
-        end
-      else
-        format.html { render :edit }
-        format.json do
-          render json: @exchange_combination.errors,
-                 status: :unprocessable_entity
-        end
+      format.html do
+        redirect_to @exchange_combination,
+                    notice: message
+      end
+      format.json do
+        render :show, status: :ok, location: @exchange_combination
       end
     end
   end
@@ -91,6 +81,16 @@ class ExchangeCombinationsController < ApplicationController
       format.json do
         render json: @exchange_combination.errors,
                status: :unauthorized
+      end
+    end
+  end
+
+  def render_unprocessable
+    respond_to do |format|
+      format.html { render :edit }
+      format.json do
+        render json: @exchange_combination.errors,
+               status: :unprocessable_entity
       end
     end
   end

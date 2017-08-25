@@ -22,7 +22,7 @@ module ExchangeCombinationsHelper
 
   def determine_profit_or_loss(profit)
     return 'Gain: ' + format('%.2f', profit).to_s unless profit <= 0
-    return 'Loss: ' + format('%.2f', -profit).to_s  unless profit.zero?
+    return 'Loss: ' + format('%.2f', -profit).to_s unless profit.zero?
     'No change'
   end
 

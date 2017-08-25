@@ -51,7 +51,6 @@ class ExchangeRecord < ApplicationRecord
     get_ranking(predicted)
   end
 
-
   def self.get_ranking(predictions)
     ascending = predictions.sort { |a, b| a[:rate] <=> b[:rate] }.uniq.reverse
     predictions.each do |p|
@@ -59,4 +58,3 @@ class ExchangeRecord < ApplicationRecord
     end
   end
 end
-
