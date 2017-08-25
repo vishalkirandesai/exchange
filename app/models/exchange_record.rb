@@ -28,10 +28,10 @@ class ExchangeRecord < ApplicationRecord
     new_record
   end
 
-  def self.predicted_data(history, wait)
+  def self.predicted_data(history, wait, amount)
     price = history.last[:rate].to_f
     average = calculate_average(history)
-    calculate_predicted_data(history.last[:date], wait, price, average)
+    calculate_predicted_data(history.last[:date], wait, price, average, amount)
   end
 
   def self.calculate_average(history)
@@ -39,12 +39,12 @@ class ExchangeRecord < ApplicationRecord
       history.size.to_f
   end
 
-  def self.calculate_predicted_data(start, wait, price, average)
+  def self.calculate_predicted_data(start, wait, price, average, amount)
     predicted = []
     original_price = price
     (start..(start + (7 * wait))).step(7) do |date|
       predicted << { date: date.strftime('%Y-%m-%d'),
-                     profit: price - original_price,
+                     profit: (price - original_price) * amount,
                      rate: price }
       price -= average
     end

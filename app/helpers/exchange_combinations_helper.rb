@@ -12,8 +12,8 @@ module ExchangeCombinationsHelper
     history.max_by { |k| k[:rate] }[:date]
   end
 
-  def get_arma(history, wait)
-    ExchangeRecord.predicted_data(history, wait)
+  def get_arma(history, wait, amount)
+    ExchangeRecord.predicted_data(history, wait, amount)
   end
 
   def get_year(date)

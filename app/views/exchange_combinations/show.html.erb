@@ -25,7 +25,7 @@
 
 <p>
   <strong>Predicted rates</strong>
-  <%= line_chart rearrange_data_for_chartkick(@predictions = get_arma(@history, @exchange_combination.wait)), min: min_value(@predictions), max: max_value(@predictions), download: true %>
+  <%= line_chart rearrange_data_for_chartkick(@predictions = get_arma(@history, @exchange_combination.wait, @exchange_combination.amount)), min: min_value(@predictions), max: max_value(@predictions), download: true %>
 </p>
 
 <table class="table table-condensed">
@@ -50,9 +50,9 @@
         <td><%= sprintf('%.2f', prediction[:rate]) %></td>
         <td><%= sprintf('%.2f', prediction[:rate].to_f * @exchange_combination.amount.to_i).to_s %></td>
         <% if profit.include? 'Gain' %>
-            <td class="alert-success"><%= profit %> <%= @exchange_combination.base %></td>
+            <td class="alert-success"><%= profit %> <%= @exchange_combination.target %></td>
         <% elsif profit.include? 'Loss' %>
-            <td class="alert-danger"><%= profit %> <%= @exchange_combination.base %></td>
+            <td class="alert-danger"><%= profit %> <%= @exchange_combination.target %></td>
         <% else %>
             <td><%= profit %></td>
         <% end %>
