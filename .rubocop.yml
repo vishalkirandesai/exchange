@@ -2,5 +2,6 @@ AllCops:
   Exclude:
     - 'bin/*'
     - 'config/*'
+    - 'config/environments/*'
     - 'db/*'
     - 'db/migrate/*'
