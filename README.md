@@ -14,6 +14,4 @@ https://exchangecombinations.herokuapp.com/
 
 ## To run specs       
 
-```bundle exec rspec```      
-
-*Note:* In the user model, include *devise :confirmable* as devise needs this feature to run with specs. 
+```EXCHANGE_DATABASE_USERNAME='your username' EXCHANGE_DATABASE_PASSWORD='your password' rspec```      
